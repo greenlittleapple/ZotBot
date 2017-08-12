@@ -2,8 +2,6 @@ import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
-import java.util.Map;
-
 public class AnnotationListener {
 
     String[] facts = new String[]{
@@ -43,6 +41,9 @@ public class AnnotationListener {
                     case "calendar":
                         outMessage = "https://www.reg.uci.edu/navigation/calendars.html";
                         break;
+                    case "clubs":
+                        outMessage = "http://campusorgs.uci.edu/";
+                        break;
                     case "fact":
                         outMessage = "Did you know? " + facts[(int) (Math.random() * facts.length)];
                         break;
@@ -53,14 +54,17 @@ public class AnnotationListener {
                         outMessage =
                                 "```Available commands are: ```" +
                                 "\n" +
-                                "`z!calendar`, `z!dining`, `z!fact`, `z!help`, `z!portal`, `z!zot`" +
+                                "`z!calendar`, `z!clubs`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!portal`, `z!planner`, `z!services`, `z!zot`" +
                                 "\n\n" +
-                                "```Type \"z!help [command]\" for more info regarding a command." +
+                                "```Type \"z!help [command]\" for more info regarding a command. (e.g. \"z!help fact\")" +
                                 "\n" +
-                                "I was made by @Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v0.81217```";
+                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v0.081217```";
                         break;
                     case "help calendar":
-                        outMessage = "`z!food: Provides a link to the UCI Academic Calendar.`";
+                        outMessage = "`z!calendar: Provides a link to the UCI Academic Calendar.`";
+                        break;
+                    case "help clubs":
+                        outMessage = "`z!clubs: Provides a link to UCI Campus Organizations.`";
                         break;
                     case "help food":
                         outMessage = "`z!food: Provides a link to UCI Dining Locations.`";
@@ -71,14 +75,32 @@ public class AnnotationListener {
                     case "help help":
                         outMessage = "`Seriously?`";
                         break;
+                    case "help housing":
+                        outMessage = "`z!housing: Provides a link to UCI Housing.`";
+                        break;
+                    case "help planner":
+                        outMessage = "`z!planner: Provides a link to CourseEater, UCI's (unofficial) course planning site.`";
+                        break;
                     case "help portal":
                         outMessage = "`z!portal: Provides a link to the ZotPortal.`";
+                        break;
+                    case "help services":
+                        outMessage = "`z!services: Provides a link to UCI Student Services.`";
                         break;
                     case "help zot":
                         outMessage = "Zot Zot Zot!";
                         break;
+                    case "housing":
+                        outMessage = "http://www.housing.uci.edu/";
+                        break;
+                    case "planner":
+                        outMessage = "https://courseeater.com/";
+                        break;
                     case "portal":
-                        outMessage = "https://portal.uci.edu";
+                        outMessage = "https://portal.uci.edu/";
+                        break;
+                    case "services":
+                        outMessage = "https://www.admissions.uci.edu/discover/student-life/services.php";
                         break;
                     case "zot":
                         outMessage = "ZOT ZOT ZOT!";
