@@ -5,20 +5,18 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 public class AnnotationListener {
 
     String[] facts = new String[]{
-            "Anteaters can be small as a squirrel (silky anteaters) or 7 feet long, counting from the tip of the nose to the end of its tail (giant anteaters).",
+            "Anteaters can be as small as a squirrel (silky anteater) or up to 7 feet long (giant anteater).",
             "Anteaters are toothless creatures.",
-            "Anteaters use their long and sticky tongue to catch prey.",
-            "The tongue of an anteater can be 2 feet long. It is narrow and covered with tiny spines.",
-            "Anteaters catch ants and termites through the hole on the top of the anthill.",
-            "Anteaters never destroy anthills because they plan to come and eat another portion of ants in the future.",
-            "Since ants can bite, anteaters must eat them quickly. They flick their tongue 150-160 times in minute during feeding to grab enough ants and avoid bites.",
-            "Anteaters' digestion is facilitated by specifically designed stomach that grinds large quantity of ants and termites. Their stomach produces formic acid instead of hydrochloric acid (which is normally found in other mammals). They can eat up to 30,000 insects per day.",
-            "Anteaters have poor eyesight, but excellent sense of smell. They can detect smell 40 times better than humans and use their nose to find food.",
-            "Anteaters have low body temperature compared to other placental mammals, just 32.7 degrees of Celsius.",
+            "The tongue of an anteater can be up to 2 feet long. It is narrow and covered with tiny spines.",
+            "Anteaters never destroy anthills to preserve it for future eating.",
+            "Anteaters have to eat ants quickly or else they will get bitten. As a result, they can flick their tongues 150-160 times a minute to catch ants quickly.",
+            "Anteaters' stomachs are specifically designed to grind a large amount of insects at once. It produces formic acid instead of hydrochloric acid (which is normally found in other mammals), and as a result anteaters can eat up to 30,000 insects per day.",
+            "Anteaters are nearly blind, but make up for it with their excellent sense of smell, which is 40 times better than that of humans.",
+            "Anteaters have a low body temperature compared to other mammals, at just 32.7 degrees Celsius.",
             "Anteaters sleep 15 hours per day.",
-            "Anteaters have 4 inches long claws and they use them to defend against jaguars and cougars.",
-            "Anteaters are solitary animals and they gather only during mating season. Group of anteaters is called \"parade\".",
-            "Anteaters live up to 15 years in the wild and 25 years in captivity."
+            "Anteaters have 4-inch-long claws and use them to defend against jaguars and cougars.",
+            "Anteaters are solitary animals and gather only during mating season. A group of anteaters is called \"parade\".",
+            "Anteaters can live up to 15 years in the wild and 25 years in captivity."
     };
 
     @EventSubscriber
