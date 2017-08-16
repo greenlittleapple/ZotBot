@@ -21,7 +21,8 @@ public class AnnotationListener {
             "UCI is the largest UC of its kind, boasting 33,467 total students in 2016.",
             "UCI is situated in Irvine, CA, which is known as the technology center of Southern California.",
             "Over 104,000 students applied for admission for UCI in 2017!",
-            "UCI's Aldrich Park contains over 11,000 trees."
+            "UCI's Aldrich Park contains over 11,000 trees.",
+            "The word \"zot\" means \"foolish\" in Dutch and \"god\" in Albanian. Zot Zot Zot!"
     };
 
     @EventSubscriber
