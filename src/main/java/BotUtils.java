@@ -2,16 +2,12 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
 class BotUtils {
-
-    // Constants for use throughout the bot
-    static String BOT_PREFIX = ";";
 
     // Handles the creation and getting of a IDiscordClient object for a token
     static IDiscordClient getBuiltDiscordClient(String token){
@@ -55,6 +51,16 @@ class BotUtils {
         RequestBuffer.request(() -> {
             try {
                 channel.sendFile(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    static void sendFile(IChannel channel, String message, File file) {
+        RequestBuffer.request(() -> {
+            try {
+                channel.sendFile(message, file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
