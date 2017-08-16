@@ -9,14 +9,19 @@ public class AnnotationListener {
             "Anteaters are toothless creatures.",
             "The tongue of an anteater can be up to 2 feet long. It is narrow and covered with tiny spines.",
             "Anteaters never destroy anthills to preserve it for future eating.",
-            "Anteaters have to eat ants quickly or else they will get bitten. As a result, they can flick their tongues 150-160 times a minute to catch ants quickly.",
+            "Anteaters have to eat ants quickly or else they will get bitten. As a result, they can flick their tongues 150-160 times a minute.",
             "Anteaters' stomachs are specifically designed to grind a large amount of insects at once. It produces formic acid instead of hydrochloric acid (which is normally found in other mammals), and as a result anteaters can eat up to 30,000 insects per day.",
             "Anteaters are nearly blind, but make up for it with their excellent sense of smell, which is 40 times better than that of humans.",
             "Anteaters have a low body temperature compared to other mammals, at just 32.7 degrees Celsius.",
             "Anteaters sleep 15 hours per day.",
             "Anteaters have 4-inch-long claws and use them to defend against jaguars and cougars.",
             "Anteaters are solitary animals and gather only during mating season. A group of anteaters is called \"parade\".",
-            "Anteaters can live up to 15 years in the wild and 25 years in captivity."
+            "Anteaters can live up to 15 years in the wild and 25 years in captivity.",
+            "UC Irvine is the only UC in Irvine. (Credit: Jacxk101)",
+            "UCI is the largest UC of its kind, boasting 33,467 total students in 2016.",
+            "UCI is situated in Irvine, CA, which is known as the technology center of Southern California.",
+            "Over 104,000 students applied for admission for UCI in 2017!",
+            "UCI's Aldrich Park contains over 11,000 trees."
     };
 
     @EventSubscriber
@@ -30,6 +35,7 @@ public class AnnotationListener {
         String lowerCaseMessage = message.toLowerCase();
         String outMessage = null;
         if(!event.getAuthor().isBot()) {
+            outer:
             if(lowerCaseMessage.startsWith("z!")) {
                 String command = lowerCaseMessage.substring(2,lowerCaseMessage.length());
                 switch (command) {
@@ -52,11 +58,11 @@ public class AnnotationListener {
                         outMessage =
                                 "```Available commands are: ```" +
                                 "\n" +
-                                "`z!calendar`, `z!clubs`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!portal`, `z!planner`, `z!services`, `z!zot`" +
+                                "`z!calendar`, `z!clubs`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!meme`, `z!portal`, `z!planner`, `z!services`, `z!zot`" +
                                 "\n\n" +
                                 "```Type \"z!help [command]\" for more info regarding a command. (e.g. \"z!help fact\")" +
                                 "\n" +
-                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v0.081217```";
+                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v0.081617```";
                         break;
                     case "help calendar":
                         outMessage = "`z!calendar: Provides a link to the UCI Academic Calendar.`";
@@ -68,13 +74,16 @@ public class AnnotationListener {
                         outMessage = "`z!food: Provides a link to UCI Dining Locations.`";
                         break;
                     case "help fact":
-                        outMessage = "`z!fact: Gives a random Anteater fact!`";
+                        outMessage = "`z!fact: Gives a random UCI/Anteater fact!`";
                         break;
                     case "help help":
                         outMessage = "`Seriously?`";
                         break;
                     case "help housing":
                         outMessage = "`z!housing: Provides a link to UCI Housing.`";
+                        break;
+                    case "help meme":
+                        outMessage = "z!meme: Gives a random UCI meme!";
                         break;
                     case "help planner":
                         outMessage = "`z!planner: Provides a link to CourseEater, UCI's (unofficial) course planning site.`";
@@ -91,6 +100,8 @@ public class AnnotationListener {
                     case "housing":
                         outMessage = "http://www.housing.uci.edu/";
                         break;
+                    case "meme":
+                        break outer;
                     case "planner":
                         outMessage = "https://courseeater.com/";
                         break;

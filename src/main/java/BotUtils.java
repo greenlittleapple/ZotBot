@@ -5,6 +5,9 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.RequestBuffer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 class BotUtils {
 
     // Constants for use throughout the bot
@@ -46,5 +49,15 @@ class BotUtils {
         });
         */
 
+    }
+
+    static void sendFile(IChannel channel, File file) {
+        RequestBuffer.request(() -> {
+            try {
+                channel.sendFile(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
