@@ -8,7 +8,7 @@ public class CommandListener {
 
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
-
+        BotUtils.setGuild(Main.client.getGuildByID("341464294132678668"));
     }
 
     @EventSubscriber
@@ -39,11 +39,11 @@ public class CommandListener {
                         outMessage =
                                 "```Available commands are: ```" +
                                 "\n" +
-                                "`z!calendar`, `z!clubs`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!meme`, `z!portal`, `z!planner`, `z!services`, `z!zot`" +
+                                "`z!calendar`, `z!clubs`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!meme`, `z!portal`, `z!planner`, `z!playing`, `z!services`, `z!zot`" +
                                 "\n\n" +
                                 "```Type \"z!help [command]\" for more info regarding a command. (e.g. \"z!help fact\")" +
                                 "\n" +
-                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v0.081617```";
+                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v1.0.0```";
                         break;
                     case "help calendar":
                         outMessage = "`z!calendar: Provides a link to the UCI Academic Calendar.`";
@@ -68,6 +68,9 @@ public class CommandListener {
                         break;
                     case "help planner":
                         outMessage = "`z!planner: Provides a link to CourseEater, UCI's (unofficial) course planning site.`";
+                        break;
+                    case "help playing":
+                        outMessage = "z!playing [game]: Lists all users on the server playing that game.";
                         break;
                     case "help portal":
                         outMessage = "`z!portal: Provides a link to the ZotPortal.`";
@@ -96,6 +99,8 @@ public class CommandListener {
                         outMessage = "ZOT ZOT ZOT!";
                         break;
                 }
+                if(command.startsWith("playing"))
+                    break outer;
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }
             else if (lowerCaseMessage.contains("zot zot zot")) {

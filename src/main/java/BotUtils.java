@@ -1,6 +1,5 @@
-import sx.blah.discord.api.ClientBuilder;
-import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RequestBuffer;
 
@@ -9,15 +8,14 @@ import java.io.FileNotFoundException;
 
 class BotUtils {
 
-    // Handles the creation and getting of a IDiscordClient object for a token
-    static IDiscordClient getBuiltDiscordClient(String token){
+    static IGuild guild;
 
-        // The ClientBuilder object is where you will attach your params for configuring the instance of your bot.
-        // Such as withToken, setDaemon etc
-        return new ClientBuilder()
-                .withToken(token)
-                .build();
+    static void setGuild(IGuild x) {
+        guild = x;
+    }
 
+    static IGuild getGuild() {
+        return guild;
     }
 
     // Helper functions to make certain aspects of the bot easier to use.
