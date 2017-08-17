@@ -43,7 +43,7 @@ public class CommandListener {
                                 "\n\n" +
                                 "```Type \"z!help [command]\" for more info regarding a command. (e.g. \"z!help fact\")" +
                                 "\n" +
-                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v1.0.0```";
+                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v1.1.0```";
                         break;
                     case "help calendar":
                         outMessage = "`z!calendar: Provides a link to the UCI Academic Calendar.`";
@@ -107,7 +107,7 @@ public class CommandListener {
                 BotUtils.sendMessage(event.getChannel(), "ZOT ZOT ZOT!");
             }
             else if (lowerCaseMessage.contains("bust a zot")) {
-                BotUtils.sendFile(event.getChannel(), "MAP OF RESTROOMS AT UCI", new File("D:\\Documents\\ZotBot\\src\\main\\resources\\Map of UCI Restrooms.png"));
+                BotUtils.sendFile(event.getChannel(), "MAP OF RESTROOMS AT UCI", new File(System.getProperty("user.dir") + "/map.png"));
             }
             /*else {
                 String bestType = com.greenlittleapple.zotbot.AI.receiveInput(lowerCaseMessage);

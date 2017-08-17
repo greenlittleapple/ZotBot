@@ -11,7 +11,7 @@ public class MemeListener {
 
     MemeListener() {
         images = new ArrayList<>();
-        File folder = new File("src/main/resources/UCI Bot Memes");
+        File folder = new File(System.getProperty("user.dir") + "/memes/");
         Collections.addAll(images, folder.listFiles());
     }
 
