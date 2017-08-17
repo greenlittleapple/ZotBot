@@ -110,7 +110,7 @@ public class CommandListener {
                 BotUtils.sendFile(event.getChannel(), "MAP OF RESTROOMS AT UCI", new File("D:\\Documents\\ZotBot\\src\\main\\resources\\Map of UCI Restrooms.png"));
             }
             /*else {
-                String bestType = AI.receiveInput(lowerCaseMessage);
+                String bestType = com.greenlittleapple.zotbot.AI.receiveInput(lowerCaseMessage);
                 //if(!bestType.startsWith("null")) {
                     BotUtils.sendMessage(event.getChannel(), "Message type is: " + bestType.substring(0, bestType.indexOf(' ')) + ", score: " + bestType.substring(bestType.indexOf(' ') + 1, bestType.length()));
                 //}

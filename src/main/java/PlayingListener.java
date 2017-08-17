@@ -14,7 +14,7 @@ public class PlayingListener {
         StringBuilder outMessage;
         if(lowerCaseMessage.startsWith("z!playing")){
             if(lowerCaseMessage.equals("z!playing")) {
-                outMessage = new StringBuilder("```Please input a game name! (e.g. z!playing PUBG)```");
+                outMessage = new StringBuilder("Please input a game name! (e.g. z!playing PUBG)");
             } else {
                 String game = message.substring(10);
                 outMessage = new StringBuilder("Current users playing " + game + ":\n```\n");
