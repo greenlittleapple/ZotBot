@@ -8,16 +8,6 @@ import java.io.FileNotFoundException;
 
 class BotUtils {
 
-    static IGuild guild;
-
-    static void setGuild(IGuild x) {
-        guild = x;
-    }
-
-    static IGuild getGuild() {
-        return guild;
-    }
-
     // Helper functions to make certain aspects of the bot easier to use.
     static void sendMessage(IChannel channel, String message){
 

@@ -8,7 +8,7 @@ public class CommandListener {
 
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
-        BotUtils.setGuild(Main.client.getGuildByID("341464294132678668"));
+
     }
 
     @EventSubscriber
@@ -43,7 +43,7 @@ public class CommandListener {
                                 "\n\n" +
                                 "```Type \"z!help [command]\" for more info regarding a command. (e.g. \"z!help fact\")" +
                                 "\n" +
-                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v1.1.0```";
+                                "I was made by Apple \uD83C\uDF4F#4472, please contact him if you have any suggestions or issues! v + " + Main.version + "```";
                         break;
                     case "help calendar":
                         outMessage = "`z!calendar: Provides a link to the UCI Academic Calendar.`";

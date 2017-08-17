@@ -18,7 +18,7 @@ public class PlayingListener {
             } else {
                 String game = message.substring(10);
                 outMessage = new StringBuilder("Current users playing " + game + ":\n```\n");
-                List<IUser> users = BotUtils.getGuild().getUsers();
+                List<IUser> users = event.getGuild().getUsers();
                 ArrayList<IUser> players = new ArrayList<>();
                 for (IUser x : users) {
                     String playedGame = x.getPresence().getPlayingText().toString().toLowerCase();
@@ -27,7 +27,7 @@ public class PlayingListener {
                     }
                 }
                 for (IUser user : players) {
-                    outMessage.append(user.getDisplayName(BotUtils.getGuild())).append("\n");
+                    outMessage.append(user.getDisplayName(event.getGuild())).append("\n");
                 }
                 outMessage.append("```");
                 if (players.size() == 0) {
