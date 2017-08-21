@@ -24,6 +24,9 @@ public class CommandListener {
                     default:
                         outMessage = "```Please enter a valid command. Type z!help to see a list of commands!```";
                         break;
+                    case "bustazot":
+                        BotUtils.sendFile(event.getChannel(), "MAP OF RESTROOMS AT UCI", new File(System.getProperty("user.dir") + "/map.png"));
+                        break outer;
                     case "calendar":
                         outMessage = "https://www.reg.uci.edu/navigation/calendars.html";
                         break;
@@ -31,6 +34,7 @@ public class CommandListener {
                         outMessage = "http://campusorgs.uci.edu/";
                         break;
                     case "fact":
+                        Facts.trigger(event);
                         break outer;
                     case "food":
                         outMessage = "http://www.food.uci.edu/dining.php";
@@ -85,6 +89,7 @@ public class CommandListener {
                         outMessage = "http://www.housing.uci.edu/";
                         break;
                     case "meme":
+                        Memes.trigger(event);
                         break outer;
                     case "planner":
                         outMessage = "https://courseeater.com/";
@@ -99,15 +104,13 @@ public class CommandListener {
                         outMessage = "ZOT ZOT ZOT!";
                         break;
                 }
-                if(command.startsWith("playing"))
-                    break outer;
+                if(command.startsWith("playing")) {
+                    outMessage = Playing.trigger(event);
+                }
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }
             else if (lowerCaseMessage.contains("zot zot zot")) {
                 BotUtils.sendMessage(event.getChannel(), "ZOT ZOT ZOT!");
-            }
-            else if (lowerCaseMessage.contains("bust a zot")) {
-                BotUtils.sendFile(event.getChannel(), "MAP OF RESTROOMS AT UCI", new File(System.getProperty("user.dir") + "/map.png"));
             }
             /*else {
                 String bestType = com.greenlittleapple.zotbot.AI.receiveInput(lowerCaseMessage);

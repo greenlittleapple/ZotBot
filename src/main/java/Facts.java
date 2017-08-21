@@ -1,9 +1,8 @@
-import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
-public class FactListener {
+public class Facts {
 
-    private String[] facts = new String[]{
+    private static String[] facts = new String[]{
             "Anteaters can be as small as a squirrel (silky anteater) or up to 7 feet long (giant anteater).",
             "Anteaters are toothless creatures.",
             "The tongue of an anteater can be up to 2 feet long. It is narrow and covered with tiny spines.",
@@ -24,13 +23,7 @@ public class FactListener {
             "The word \"zot\" means \"foolish\" in Dutch and \"god\" in Albanian. Zot Zot Zot!"
     };
 
-    @EventSubscriber
-    public void onMessageReceivedEvent(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
-        String message = event.getMessage().toString();
-        String lowerCaseMessage = message.toLowerCase();
-        if(lowerCaseMessage.equals("z!fact")){
-            BotUtils.sendMessage(event.getChannel(), "Did you know? " + facts[(int) (Math.random()*facts.length)]);
-        }
+    public static void trigger(MessageReceivedEvent event) {
+        BotUtils.sendMessage(event.getChannel(), "Did you know? " + facts[(int) (Math.random()*facts.length)]);
     }
-
 }
