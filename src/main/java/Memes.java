@@ -25,16 +25,19 @@ public class Memes {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                images = new ArrayList<>();
+                File folder = new File(System.getProperty("user.dir") + "/memes/");
+                Collections.addAll(images, folder.listFiles());
             }
         };
-        timer.schedule(getMemes, 01,1000*60*60);
-        images = new ArrayList<>();
-        File folder = new File(System.getProperty("user.dir") + "/memes/");
-        Collections.addAll(images, folder.listFiles());
+        timer.schedule(getMemes, 0,1000*60*60);
     }
 
-    public static void trigger(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
-        BotUtils.sendFile(event.getChannel(), images.get((int) (Math.random() * images.size())));
+    public static void trigger(MessageReceivedEvent event) {
+        if(images.size() != 0)
+            BotUtils.sendFile(event.getChannel(), images.get((int) (Math.random() * images.size())));
+        else
+            BotUtils.sendMessage(event.getChannel(), "Please try again in a bit.");
     }
 
 }

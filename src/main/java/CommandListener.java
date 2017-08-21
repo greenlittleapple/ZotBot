@@ -31,7 +31,7 @@ public class CommandListener {
                         outMessage = "https://www.reg.uci.edu/navigation/calendars.html";
                         break;
                     case "clubs":
-                        outMessage = "http://campusorgs.uci.edu/";
+                        outMessage = "http://campusorgs.uci.edu/search/2016-2017";
                         break;
                     case "fact":
                         Facts.trigger(event);
@@ -105,7 +105,8 @@ public class CommandListener {
                         break;
                 }
                 if(command.startsWith("playing")) {
-                    outMessage = Playing.trigger(event);
+                    Playing.trigger(event);
+                    break outer;
                 }
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }

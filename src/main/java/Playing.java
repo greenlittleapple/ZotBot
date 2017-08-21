@@ -1,18 +1,21 @@
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.util.EmbedBuilder;
+import sx.blah.discord.util.RequestBuffer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Playing {
 
-    public static String trigger(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
+    public static void trigger(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
         String message = event.getMessage().toString();
         String lowerCaseMessage = message.toLowerCase();
-        StringBuilder outMessage;
         if(lowerCaseMessage.equals("z!playing")) {
-            outMessage = new StringBuilder("Please input a game name! (e.g. z!playing PUBG)");
+            BotUtils.sendMessage(event.getChannel(), "Please input a game name! (e.g. z!playing PUBG)");
         } else {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.withColor(0,100,164);
             String game = message.substring(10);
             if(game.toLowerCase().matches("cs:go|csgo|counter strike global offensive"))
                 game = "Counter-Strike Global Offensive";
@@ -22,7 +25,6 @@ public class Playing {
                 game = "Overwatch";
             if (game.toLowerCase().matches("osu"))
                 game = "osu!";
-            outMessage = new StringBuilder("Current users playing " + game + ":\n```\n");
             List<IUser> users = event.getGuild().getUsers();
             ArrayList<IUser> players = new ArrayList<>();
             for (IUser x : users) {
@@ -31,15 +33,27 @@ public class Playing {
                     players.add(x);
                 }
             }
+            StringBuilder listPlayers = new StringBuilder("```fix\n");
             for (IUser user : players) {
-                outMessage.append(user.getDisplayName(event.getGuild())).append("\n");
+                listPlayers.append(user.getDisplayName(event.getGuild()));
+                if(!user.getDisplayName(event.getGuild()).equals(user.getName())) {
+                        listPlayers.append(" (")
+                            .append(user.getName())
+                            .append("#")
+                            .append(user.getDiscriminator())
+                            .append(")");
+                }
+                listPlayers.append("\n");
             }
-            outMessage.append("```");
+            listPlayers.append("```");
+            builder.withAuthorName("Current users playing " + game + " - " + players.size());
+            builder.appendDesc(listPlayers.toString());
             if (players.size() == 0) {
-                outMessage = new StringBuilder("Looks like no one is playing " + game + "!");
+                BotUtils.sendMessage(event.getChannel(), "Looks like no one is playing " + game + "!");
+            } else {
+                RequestBuffer.request(() -> event.getChannel().sendMessage(builder.build()));
             }
         }
-        return outMessage.toString();
     }
 
 }

@@ -19,17 +19,13 @@ public class RedditHandler {
         RestClient client = new HttpRestClient();
         client.setUserAgent("ZotBot/1.0");
         User user = new User(client,Main.redditUsername, Main.redditPass);
-        try {
-            user.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         Submissions submissions = new Submissions(client, user);
         ArrayList<Submission> subreddit = new ArrayList<>(submissions.ofSubreddit(sub, SubmissionSort.HOT, -1,100, null,null,true));
         for(Submission x : subreddit ) {
             if(!x.isSelf() && x.getScore() > 1000) {
-                System.out.println(x.getPermalink());
-                if(! new File(System.getProperty("user.dir") + "/memes/" + x.getPermalink().substring(sub.length() + 11,sub.length() + 19) + ".png").exists()) {
+                //System.out.println(x.getPermalink());
+                File imageFile = new File(System.getProperty("user.dir") + "/memes/" + x.getPermalink().substring(sub.length() + 13,sub.length() + 19) + ".png");
+                if(!imageFile.exists()) {
                     URL url = null;
                     try {
                         url = new URL(x.getURL());
@@ -37,8 +33,7 @@ public class RedditHandler {
                         e.printStackTrace();
                     }
                     BufferedImage img = ImageIO.read(url);
-                    File imageFile = new File(System.getProperty("user.dir") + "/memes/" + x.getPermalink().substring(sub.length() + 11,sub.length() + 19) + ".png");
-                    if(img == null) {
+                    if(img == null && url.toString().startsWith("https://imgur.com")) {
                         img = ImageIO.read(new URL("https://i.imgur.com/" + url.toString().substring(18)));
                     }
                     if(img != null)
