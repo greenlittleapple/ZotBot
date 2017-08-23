@@ -28,8 +28,8 @@ public class Playing {
             List<IUser> users = event.getGuild().getUsers();
             ArrayList<IUser> players = new ArrayList<>();
             for (IUser x : users) {
-                String playedGame = x.getPresence().getPlayingText().toString().toLowerCase();
-                if (playedGame.substring(9, playedGame.length() - 1).equals(game.toLowerCase())) {
+                String playedGame = x.getPresence().getPlayingText().toString();
+                if (playedGame.substring(9, playedGame.length() - 1).equalsIgnoreCase(game)) {
                     players.add(x);
                 }
             }

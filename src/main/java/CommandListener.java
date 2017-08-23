@@ -113,6 +113,10 @@ public class CommandListener {
             else if (lowerCaseMessage.contains("zot zot zot")) {
                 BotUtils.sendMessage(event.getChannel(), "ZOT ZOT ZOT!");
             }
+            else if (((lowerCaseMessage.contains("chink") && !lowerCaseMessage.contains("pochinki")) || lowerCaseMessage.contains("nigger") || lowerCaseMessage.contains("faggot") || lowerCaseMessage.contains("gook")) && event.getGuild().getLongID() == 341464294132678668L) {
+                event.getMessage().delete();
+                BotUtils.sendMessage(event.getChannel(), ".warn <@" + event.getAuthor().getStringID() + "> Please do not say racial or homophobic slurs. You will be banned on your second warning. If this warning was given in error, please contact a moderator. ");
+            }
             /*else {
                 String bestType = com.greenlittleapple.zotbot.AI.receiveInput(lowerCaseMessage);
                 //if(!bestType.startsWith("null")) {
