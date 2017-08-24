@@ -27,10 +27,7 @@ public class Memes {
                 images = new ArrayList<>();
                 File folder = new File(System.getProperty("user.dir") + "/memes/");
                 Collections.addAll(images, folder.listFiles());
-                imageActivate = new ArrayList<>();
-                for(File x : images) {
-                    imageActivate.add(0);
-                }
+                imageActivate = new ArrayList<>(Collections.nCopies(images.size(), 0));
             }
         };
         timer.schedule(getMemes, 0,1000*60*60);
@@ -40,7 +37,7 @@ public class Memes {
         if(images.size() != 0) {
             int index;
             if(!imageActivate.contains(0)) {
-                imageActivate = new ArrayList<>(Arrays.asList(new Integer[images.size()]));
+                imageActivate = new ArrayList<>(Collections.nCopies(images.size(), 0));
             }
             do {
                 index = (int) (Math.random() * images.size());

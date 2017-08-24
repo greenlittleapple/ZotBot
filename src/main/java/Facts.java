@@ -1,5 +1,8 @@
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Facts {
 
     private static String[] facts = new String[]{
@@ -16,14 +19,25 @@ public class Facts {
             "Anteaters are solitary animals and gather only during mating season. A group of anteaters is called \"parade\".",
             "Anteaters can live up to 15 years in the wild and 25 years in captivity.",
             "UC Irvine is the only UC in Irvine. (Credit: Jacxk101)",
-            "UCI is the largest UC of its kind, boasting 33,467 total students in 2016.",
+            "UCI is the largest UC of its size.",
             "UCI is situated in Irvine, CA, which is known as the technology center of Southern California.",
             "Over 104,000 students applied for admission for UCI in 2017!",
             "UCI's Aldrich Park contains over 11,000 trees.",
-            "The word \"zot\" means \"foolish\" in Dutch and \"god\" in Albanian. Zot Zot Zot!"
+            "The word \"zot\" means \"foolish\" in Dutch and \"god\" in Albanian. Zot Zot Zot!",
+            "UCI is ranked 8th greenest university in the nation!",
+            "UCI is among Sierra magazine's top 10 \"Cool Schools\" for the eighth straight year."
     };
 
+    private static ArrayList<Integer> factsCheck = new ArrayList<>(Collections.nCopies(facts.length, 0));
+
     public static void trigger(MessageReceivedEvent event) {
-        BotUtils.sendMessage(event.getChannel(), "Did you know? " + facts[(int) (Math.random()*facts.length)]);
+        int index;
+        if(!factsCheck.contains(0))
+            factsCheck = new ArrayList<>(Collections.nCopies(facts.length, 0));
+        do {
+            index = (int) (Math.random() * facts.length);
+        } while(factsCheck.get(index) != 0);
+        BotUtils.sendMessage(event.getChannel(), "Did you know? " + facts[index]);
+        factsCheck.set(index, 1);
     }
 }
