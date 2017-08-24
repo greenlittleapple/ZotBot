@@ -22,6 +22,7 @@ public class Memes {
                     RedditHandler.recoverImages("dankmemes");
                     RedditHandler.recoverImages("wholesomememes");
                     RedditHandler.recoverImages("meirl");
+                    RedditHandler.recoverImages("bonehurtingjuice");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

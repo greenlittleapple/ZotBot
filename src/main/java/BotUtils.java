@@ -1,4 +1,5 @@
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RequestBuffer;
 
@@ -6,6 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 class BotUtils {
+
+    static IGuild getUCIGuild() {
+        return Main.client.getGuildByID(341464294132678668L);
+    }
 
     // Helper functions to make certain aspects of the bot easier to use.
     static void sendMessage(IChannel channel, String message){
