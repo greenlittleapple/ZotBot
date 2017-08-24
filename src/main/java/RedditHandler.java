@@ -20,7 +20,7 @@ public class RedditHandler {
         client.setUserAgent("ZotBot/1.0");
         User user = new User(client,Main.redditUsername, Main.redditPass);
         Submissions submissions = new Submissions(client, user);
-        ArrayList<Submission> subreddit = new ArrayList<>(submissions.ofSubreddit(sub, SubmissionSort.HOT, -1,100, null,null,true));
+        ArrayList<Submission> subreddit = new ArrayList<>(submissions.ofSubreddit(sub, SubmissionSort.HOT, -1,300, null,null,true));
         for(Submission x : subreddit ) {
             if(!x.isSelf() && x.getScore() > 1000) {
                 //System.out.println(x.getPermalink());
@@ -32,12 +32,13 @@ public class RedditHandler {
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
-                    BufferedImage img = ImageIO.read(url);
-                    if(img == null && url.toString().startsWith("https://imgur.com")) {
-                        img = ImageIO.read(new URL("https://i.imgur.com/" + url.toString().substring(18)));
+                    if(url.toString().endsWith("png") || url.toString().endsWith("jpg") || url.toString().startsWith("https://imgur.com")) {
+                        BufferedImage img = ImageIO.read(url);
+                        if (img == null) {
+                            img = ImageIO.read(new URL("https://i.imgur.com/" + url.toString().substring(18)));
+                        } else
+                            ImageIO.write(img, "png", imageFile);
                     }
-                    if(img != null)
-                        ImageIO.write(img,"png",imageFile);
                 }
             }
         }

@@ -2,14 +2,12 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Memes {
 
     private static ArrayList<File> images;
+    private static ArrayList<Integer> imageActivate;
     private static Timer timer;
 
     Memes() {
@@ -29,14 +27,27 @@ public class Memes {
                 images = new ArrayList<>();
                 File folder = new File(System.getProperty("user.dir") + "/memes/");
                 Collections.addAll(images, folder.listFiles());
+                imageActivate = new ArrayList<>();
+                for(File x : images) {
+                    imageActivate.add(0);
+                }
             }
         };
         timer.schedule(getMemes, 0,1000*60*60);
     }
 
     public static void trigger(MessageReceivedEvent event) {
-        if(images.size() != 0)
-            BotUtils.sendFile(event.getChannel(), images.get((int) (Math.random() * images.size())));
+        if(images.size() != 0) {
+            int index;
+            if(!imageActivate.contains(0)) {
+                imageActivate = new ArrayList<>(Arrays.asList(new Integer[images.size()]));
+            }
+            do {
+                index = (int) (Math.random() * images.size());
+            } while(imageActivate.get(index) != 0);
+            BotUtils.sendFile(event.getChannel(), images.get(index));
+            imageActivate.set(index, 1);
+        }
         else
             BotUtils.sendMessage(event.getChannel(), "Please try again in a bit.");
     }
