@@ -7,6 +7,9 @@ import java.util.Arrays;
 
 public class CommandListener {
 
+    static String[] badWords = new String[]{"chink","faggot","gook","n i g g e r", "f a g g o t","cunt","kike","n i g g a", "k i k e","nigg"};
+    static String noPerm = "ERROR: You do not have permission to use this command.";
+
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
 
@@ -16,7 +19,6 @@ public class CommandListener {
     public void onMessageReceivedEvent(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
         String message = event.getMessage().toString();
         String lowerCaseMessage = message.toLowerCase();
-        String[] badWords = new String[]{"chink","faggot","gook","nigger","n i g g e r", "f a g g o t","nigga","cunt","kike","n i g g a", "k i k e","bitch","nigg"};
         String outMessage;
         if(!event.getAuthor().isBot()) {
             outer:
@@ -24,7 +26,7 @@ public class CommandListener {
                 String command = lowerCaseMessage.substring(2,lowerCaseMessage.length());
                 switch (command) {
                     default:
-                        outMessage = "```Please enter a valid command. Type z!help to see a list of commands!```";
+                        outMessage = "```ERROR: Please enter a valid command. Type z!help to see a list of commands!```";
                         break;
                     case "bustazot":
                         BotUtils.sendFile(event.getChannel(), "MAP OF RESTROOMS AT UCI", new File(System.getProperty("user.dir") + "/map.png"));
@@ -109,6 +111,20 @@ public class CommandListener {
                 if(command.startsWith("playing")) {
                     Playing.trigger(event);
                     break outer;
+                } else if(command.startsWith("warn")) {
+                    if (event.getAuthor().getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(342539333015699457L))) {
+                        Warning.warn(event, "", event.getAuthor(), false);
+                        break outer;
+                    } else {
+                        outMessage = noPerm;
+                    }
+                } else if(command.startsWith("unwarn")) {
+                    if (event.getAuthor().getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(342539333015699457L))) {
+                        Warning.unwarn(event);
+                        break outer;
+                    } else {
+                        outMessage = noPerm;
+                    }
                 }
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }
@@ -116,13 +132,8 @@ public class CommandListener {
                 BotUtils.sendMessage(event.getChannel(), "ZOT ZOT ZOT!");
             }
             else if (Arrays.stream(badWords).parallel().anyMatch(lowerCaseMessage::contains) && !lowerCaseMessage.contains("pochinki") && event.getGuild().equals(BotUtils.getUCIGuild())) {
-                BotUtils.sendMessage(event.getChannel(), "<@" + event.getAuthor().getStringID() + "> You have been warned for saying a racial/offensive slur. You will be banned on your second warning. If this warning was given in error, please contact a moderator. ");
+                Warning.warn(event, "Offensive or foul language", Main.client.getOurUser(), true);
                 event.getMessage().delete();
-                if(event.getAuthor().getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getUCIGuild().getRolesByName("warning-1").get(0))) {
-                    event.getGuild().banUser(event.getAuthor(), "Racial/offensive slurs", 7);
-                } else {
-                    event.getAuthor().addRole(BotUtils.getUCIGuild().getRolesByName("warning-1").get(0));
-                }
             }
             /*else {
                 String bestType = com.greenlittleapple.zotbot.AI.receiveInput(lowerCaseMessage);

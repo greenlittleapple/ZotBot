@@ -12,7 +12,7 @@ public class Playing {
         String message = event.getMessage().toString();
         String lowerCaseMessage = message.toLowerCase();
         if(lowerCaseMessage.equals("z!playing")) {
-            BotUtils.sendMessage(event.getChannel(), "Please input a game name! (e.g. z!playing PUBG)");
+            BotUtils.sendMessage(event.getChannel(), "ERROR: Please input a game name! (e.g. z!playing PUBG)");
         } else {
             EmbedBuilder builder = new EmbedBuilder();
             builder.withColor(0,100,164);
