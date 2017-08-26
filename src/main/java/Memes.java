@@ -4,15 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class Memes {
+class Memes {
 
     private static ArrayList<File> images;
     private static ArrayList<Integer> imageActivate;
-    private static Timer timer;
 
     Memes() {
-        timer = new Timer();
+        Timer timer = new Timer();
         TimerTask getMemes = new TimerTask() {
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void run() {
                 try {
@@ -33,7 +33,7 @@ public class Memes {
         timer.schedule(getMemes, 0,1000*60*60);
     }
 
-    public static void trigger(MessageReceivedEvent event) {
+    static void trigger(MessageReceivedEvent event) {
         if(images.size() != 0) {
             int index;
             if(!imageActivate.contains(0)) {

@@ -1,22 +1,24 @@
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.obj.IUser;
 
 import java.io.File;
 import java.util.Arrays;
 
-public class CommandListener {
+class CommandListener {
 
-    static String[] badWords = new String[]{"chink","faggot","gook","n i g g e r", "f a g g o t","cunt","kike","n i g g a", "k i k e","nigg"};
-    static String noPerm = "ERROR: You do not have permission to use this command.";
+    private static final String[] badWords = new String[]{"chink","faggot","gook","n i g g e r", "f a g g o t","cunt","kike","n i g g a", "k i k e","nigg"};
+    private static final String noPerm = "ERROR: You do not have permission to use this command.";
 
+    @SuppressWarnings("EmptyMethod")
     @EventSubscriber
-    public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
+    public void onReadyEvent(ReadyEvent event) {
 
     }
 
     @EventSubscriber
-    public void onMessageReceivedEvent(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
+    public void onMessageReceivedEvent(MessageReceivedEvent event) {
         String message = event.getMessage().toString();
         String lowerCaseMessage = message.toLowerCase();
         String outMessage;
@@ -47,7 +49,7 @@ public class CommandListener {
                         outMessage =
                                 "```Available commands are: ```" +
                                 "\n" +
-                                "`z!calendar`, `z!clubs`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!meme`, `z!portal`, `z!planner`, `z!playing`, `z!services`, `z!zot`" +
+                                "`z!calendar`, `z!clubs`, `z!find`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!meme`, `z!portal`, `z!planner`, `z!playing`, `z!services`, `z!zot`" +
                                 "\n\n" +
                                 "```Type \"z!help [command]\" for more info regarding a command. (e.g. \"z!help fact\")" +
                                 "\n" +
@@ -64,6 +66,9 @@ public class CommandListener {
                         break;
                     case "help fact":
                         outMessage = "`z!fact: Gives a random UCI/Anteater fact!`";
+                        break;
+                    case "help find":
+                        outMessage = "`z!find [user]: Finds a user based on a search query.`";
                         break;
                     case "help help":
                         outMessage = "`Seriously?`";
@@ -112,19 +117,25 @@ public class CommandListener {
                     Playing.trigger(event);
                     break outer;
                 } else if(command.startsWith("warn")) {
-                    if (event.getAuthor().getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(342539333015699457L))) {
+                    if (BotUtils.isMod(event.getAuthor())) {
                         Warning.warn(event, "", event.getAuthor(), false);
                         break outer;
                     } else {
                         outMessage = noPerm;
                     }
                 } else if(command.startsWith("unwarn")) {
-                    if (event.getAuthor().getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(342539333015699457L))) {
+                    if (BotUtils.isMod(event.getAuthor())) {
                         Warning.unwarn(event);
                         break outer;
                     } else {
                         outMessage = noPerm;
                     }
+                } else if(command.startsWith("find")) {
+                    IUser foundUser = BotUtils.findUser(command.substring(5), event.getGuild());
+                    if(foundUser != null)
+                        outMessage = foundUser.getDisplayName(event.getGuild());
+                    else
+                        outMessage = "ERROR: Could not find user.";
                 }
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }

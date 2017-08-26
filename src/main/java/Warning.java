@@ -3,17 +3,17 @@ import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.EmbedBuilder;
 import sx.blah.discord.util.MessageTokenizer;
 
-public class Warning {
+class Warning {
 
-    public static void warn(MessageReceivedEvent event, String reasonInput, IUser moderator, boolean automod) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
+    static void warn(MessageReceivedEvent event, String reasonInput, IUser moderator, boolean automod) {
         String message = event.getMessage().toString();
         String outMessage = "";
         String reason = "Breaking a server rule";
-        if (event.getMessage().getMentions().size() != 0 || automod) {
+        MessageTokenizer tokenizer = new MessageTokenizer(Main.client, message);
+        tokenizer.nextWord();
+        if(tokenizer.hasNextWord() || automod) {
+            String user = tokenizer.nextWord().toString();
             if(reasonInput.equals("")) {
-                MessageTokenizer tokenizer = new MessageTokenizer(Main.client, message);
-                tokenizer.nextWord();
-                tokenizer.nextWord();
                 if(tokenizer.getRemainingContent().length() != 0)
                     reason = tokenizer.getRemainingContent();
             } else {
@@ -22,8 +22,11 @@ public class Warning {
             IUser target;
             if(automod)
                 target = event.getAuthor();
-            else
+            else if(event.getMessage().getMentions().size() != 0)
                 target = event.getMessage().getMentions().get(0);
+            else
+                target = BotUtils.findUser(user, event.getGuild());
+            assert target != null;
             if (!target.getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(350330574134706176L))) {
                 target.addRole(BotUtils.getRoleByID(350330574134706176L));
                 EmbedBuilder builder = new EmbedBuilder();
@@ -42,19 +45,24 @@ public class Warning {
         BotUtils.sendMessage(event.getChannel(), outMessage);
     }
 
-    public static void unwarn(MessageReceivedEvent event) {
-        String outMessage = "";
-        if(event.getMessage().getMentions().size() != 0) {
-            IUser target = event.getMessage().getMentions().get(0);
-            if(target.getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(350330574134706176L))) {
+    static void unwarn(MessageReceivedEvent event) {
+        String outMessage;
+        MessageTokenizer tokenizer = new MessageTokenizer(Main.client, event.getMessage().getContent());
+        tokenizer.nextWord();
+        IUser target = null;
+        if(event.getMessage().getMentions().size() != 0)
+             target = event.getMessage().getMentions().get(0);
+        else if(tokenizer.hasNextWord())
+            target = BotUtils.findUser(tokenizer.nextWord().toString(), event.getGuild());
+        if(target != null) {
+            if (target.getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(350330574134706176L))) {
                 target.removeRole(BotUtils.getRoleByID(350330574134706176L));
                 outMessage = "Warning successfully removed.";
             } else {
                 outMessage = "ERROR: User does not have a warning.";
             }
-        } else {
+        } else
             outMessage = "ERROR: Please input a user to unwarn.";
-        }
         BotUtils.sendMessage(event.getChannel(), outMessage);
     }
 

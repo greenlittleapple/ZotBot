@@ -3,9 +3,9 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Facts {
+class Facts {
 
-    private static String[] facts = new String[]{
+    private static final String[] facts = new String[]{
             "Anteaters can be as small as a squirrel (silky anteater) or up to 7 feet long (giant anteater).",
             "Anteaters are toothless creatures.",
             "The tongue of an anteater can be up to 2 feet long. It is narrow and covered with tiny spines.",
@@ -30,7 +30,7 @@ public class Facts {
 
     private static ArrayList<Integer> factsCheck = new ArrayList<>(Collections.nCopies(facts.length, 0));
 
-    public static void trigger(MessageReceivedEvent event) {
+    static void trigger(MessageReceivedEvent event) {
         int index;
         if(!factsCheck.contains(0))
             factsCheck = new ArrayList<>(Collections.nCopies(facts.length, 0));

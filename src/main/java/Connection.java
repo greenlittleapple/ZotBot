@@ -2,6 +2,7 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.util.DiscordException;
 
+@SuppressWarnings("SameParameterValue")
 class Connection {
     static IDiscordClient createClient(String token, boolean login) { // Returns a new instance of the Discord client
         ClientBuilder clientBuilder = new ClientBuilder(); // Creates the ClientBuilder instance

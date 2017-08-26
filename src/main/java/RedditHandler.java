@@ -13,9 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class RedditHandler {
+class RedditHandler {
 
-    public static void recoverImages(String sub) throws IOException {
+    static void recoverImages(String sub) throws IOException {
         RestClient client = new HttpRestClient();
         client.setUserAgent("ZotBot/1.0");
         User user = new User(client,Main.redditUsername, Main.redditPass);
@@ -32,9 +32,11 @@ public class RedditHandler {
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
+                    assert url != null;
                     if(url.toString().endsWith("png") || url.toString().endsWith("jpg") || url.toString().startsWith("https://imgur.com")) {
                         BufferedImage img = ImageIO.read(url);
                         if (img == null) {
+                            //noinspection UnusedAssignment
                             img = ImageIO.read(new URL("https://i.imgur.com/" + url.toString().substring(18)));
                         } else
                             ImageIO.write(img, "png", imageFile);

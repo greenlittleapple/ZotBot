@@ -6,9 +6,9 @@ import sx.blah.discord.util.RequestBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playing {
+class Playing {
 
-    public static void trigger(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
+    static void trigger(MessageReceivedEvent event) {
         String message = event.getMessage().toString();
         String lowerCaseMessage = message.toLowerCase();
         if(lowerCaseMessage.equals("z!playing")) {
