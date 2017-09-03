@@ -29,15 +29,33 @@ class Warning {
             assert target != null;
             if (!target.getRolesForGuild(BotUtils.getUCIGuild()).contains(BotUtils.getRoleByID(350330574134706176L))) {
                 target.addRole(BotUtils.getRoleByID(350330574134706176L));
+                //Embed message for PMing warned user
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.withAuthorName("Warned on UCI Server");
                 builder.withColor(255,0,0);
                 builder.appendField("Moderator", moderator.getDisplayName(BotUtils.getUCIGuild()) + "#" + moderator.getDiscriminator(), true);
                 builder.appendField("Reason", reason, false);
                 BotUtils.sendMessage(Main.client.getOrCreatePMChannel(target), builder.build());
+                //Embed WARN message for #mod-log
+                builder = new EmbedBuilder();
+                builder.withAuthorName("Warned User");
+                builder.withColor(255,0,0);
+                builder.appendField("Moderator", moderator.getDisplayName(BotUtils.getUCIGuild()) + "#" + moderator.getDiscriminator(), true);
+                builder.appendField("User",target.getDisplayName(BotUtils.getUCIGuild()) + "#" + target.getDiscriminator(), false);
+                builder.appendField("Reason", reason, false);
+                BotUtils.sendMessage(Main.client.getChannelByID(342545356531302413L), builder.build());
+                //Chat message in channel
                 outMessage = "<@" + target.getStringID() + "> You have been warned for reason: " + reason + ". You will be banned on your second warning. If this warning was given in error, please contact a moderator.";
             } else {
                 BotUtils.getUCIGuild().banUser(target,reason, 7);
+                //Embed BAN message for #mod-log
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.withAuthorName("Banned User");
+                builder.withColor(255,0,0);
+                builder.appendField("Moderator", moderator.getDisplayName(BotUtils.getUCIGuild()) + "#" + moderator.getDiscriminator(), true);
+                builder.appendField("User",target.getDisplayName(BotUtils.getUCIGuild()) + "#" + target.getDiscriminator(), false);
+                builder.appendField("Reason", reason, false);
+                BotUtils.sendMessage(Main.client.getChannelByID(342545356531302413L), builder.build());
             }
         } else {
             outMessage = "ERROR: Please input a user to warn.";

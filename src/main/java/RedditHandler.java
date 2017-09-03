@@ -22,7 +22,7 @@ class RedditHandler {
         Submissions submissions = new Submissions(client, user);
         ArrayList<Submission> subreddit = new ArrayList<>(submissions.ofSubreddit(sub, SubmissionSort.HOT, -1,300, null,null,true));
         for(Submission x : subreddit ) {
-            if(!x.isSelf() && x.getScore() > 1000) {
+            if(!x.isSelf() && x.getScore() > 1000 && !x.isNSFW()) {
                 //System.out.println(x.getPermalink());
                 File imageFile = new File(System.getProperty("user.dir") + "/memes/" + x.getPermalink().substring(sub.length() + 13,sub.length() + 19) + ".png");
                 if(!imageFile.exists()) {
