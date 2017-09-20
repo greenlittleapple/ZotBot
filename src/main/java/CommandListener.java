@@ -4,7 +4,6 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 import sx.blah.discord.handle.obj.IUser;
 
 import java.io.File;
-import java.util.Arrays;
 
 class CommandListener {
 
@@ -142,10 +141,10 @@ class CommandListener {
             else if (lowerCaseMessage.contains("zot zot zot")) {
                 BotUtils.sendMessage(event.getChannel(), "ZOT ZOT ZOT!");
             }
-            else if (Arrays.stream(badWords).parallel().anyMatch(lowerCaseMessage::contains) && !lowerCaseMessage.contains("pochinki") && event.getGuild().equals(BotUtils.getUCIGuild())) {
+            /*else if (Arrays.stream(badWords).parallel().anyMatch(lowerCaseMessage::contains) && !lowerCaseMessage.contains("pochinki") && event.getGuild().equals(BotUtils.getUCIGuild())) {
                 Warning.warn(event, "Offensive or foul language", Main.client.getOurUser(), true);
                 event.getMessage().delete();
-            }
+            }*/
             /*else {
                 String bestType = com.greenlittleapple.zotbot.AI.receiveInput(lowerCaseMessage);
                 //if(!bestType.startsWith("null")) {
