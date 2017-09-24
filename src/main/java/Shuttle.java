@@ -28,12 +28,11 @@ class Shuttle {
             try {
                 Element next = lineIter.next();
                 StringBuilder string = new StringBuilder();
-                string.append(next.findFirst("<a>").getText()
-                        + " - ");
+                string.append(next.findFirst("<a>").getText());
                 if(next.findFirst("<div class=in-service|not-in-service style=\"display: none;\">").getText().equalsIgnoreCase("not in service")) {
-                    string.append("In Service");
+                    string.append(" In Service");
                 } else {
-                    string.append("Not In Service");
+                    string.append(" Not In Service");
                 }
                 builder.appendField(string.toString(), next.findAttributeValues("<a href>").get(0), false);
             } catch (NotFound notFound) {
