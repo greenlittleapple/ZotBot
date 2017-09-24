@@ -84,4 +84,30 @@ class Warning {
         BotUtils.sendMessage(event.getChannel(), outMessage);
     }
 
+    static void report(MessageReceivedEvent event) {
+        IUser author = event.getAuthor();
+        MessageTokenizer tokenizer = new MessageTokenizer(Main.client, event.getMessage().getContent());
+        tokenizer.nextWord();
+        if(tokenizer.hasNextWord()) {
+            IUser target = BotUtils.findUser(tokenizer.nextWord().getContent(), event.getGuild());
+            if(tokenizer.getRemainingContent().length() != 0) {
+                String reason = tokenizer.getRemainingContent();
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.withAuthorName("Report Submitted");
+                builder.withColor(255, 0, 0);
+                builder.appendField("Reporter", author.getDisplayName(BotUtils.getUCIGuild()) + "#" + author.getDiscriminator(), true);
+                builder.appendField("Reportee", target.getDisplayName(BotUtils.getUCIGuild()) + "#" + target.getDiscriminator(), false);
+                builder.appendField("Reason", reason, false);
+                BotUtils.sendMessage(BotUtils.getUCIGuild().getChannelByID(342545356531302413L), "<@&342539333015699457>");
+                BotUtils.sendMessage(BotUtils.getUCIGuild().getChannelByID(342545356531302413L), builder.build());
+                BotUtils.sendMessage(Main.client.getOrCreatePMChannel(author), "Report successfully submitted for user " + target.getDisplayName(BotUtils.getUCIGuild()) + "#" + target.getDiscriminator() + ", thank you for helping!");
+            } else {
+                BotUtils.sendMessage(Main.client.getOrCreatePMChannel(author), "Please input a reason in your report! (Ex: z!report [user] [reason])");
+            }
+        } else {
+            BotUtils.sendMessage(Main.client.getOrCreatePMChannel(author), "Please input a person to report! (Ex: z!report [user] [reason])");
+        }
+        event.getMessage().delete();
+    }
+
 }

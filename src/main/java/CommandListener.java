@@ -48,7 +48,7 @@ class CommandListener {
                         outMessage =
                                 "```Available commands are: ```" +
                                 "\n" +
-                                "`z!calendar`, `z!clubs`, `z!find`, `z!food`, `z!fact`, `z!help`, `z!housing`, `z!meme`, `z!portal`, `z!planner`, `z!playing`, `z!services`, `z!zot`" +
+                                "`z!calendar`, `z!clubs`, `z!fact`, `z!find`, `z!food`, `z!help`, `z!housing`, `z!meme`, `z!portal`, `z!planner`, `z!playing`, `z!report`, `z!services`, `z!shuttle`, `z!zot`" +
                                 "\n\n" +
                                 "```Type \"z!help [command]\" for more info regarding a command. (e.g. \"z!help fact\")" +
                                 "\n" +
@@ -87,8 +87,14 @@ class CommandListener {
                     case "help portal":
                         outMessage = "`z!portal: Provides a link to the ZotPortal.`";
                         break;
+                    case "help report":
+                        outMessage = "`z!report: Reports a user to the moderation team. Use: z!report [user] [reason]`";
+                        break;
                     case "help services":
                         outMessage = "`z!services: Provides a link to UCI Student Services.`";
+                        break;
+                    case "help shuttle":
+                        outMessage = "`z!shuttle: Provides info about the Anteater Express.`";
                         break;
                     case "help zot":
                         outMessage = "Zot Zot Zot!";
@@ -108,6 +114,9 @@ class CommandListener {
                     case "services":
                         outMessage = "https://www.admissions.uci.edu/discover/student-life/services.php";
                         break;
+                    case "shuttle":
+                        Shuttle.getShuttles(event);
+                        break outer;
                     case "zot":
                         outMessage = "ZOT ZOT ZOT!";
                         break;
@@ -135,6 +144,9 @@ class CommandListener {
                         outMessage = foundUser.getDisplayName(event.getGuild());
                     else
                         outMessage = "ERROR: Could not find user.";
+                } else if(command.startsWith("report")) {
+                    Warning.report(event);
+                    break outer;
                 }
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }
