@@ -5,6 +5,7 @@ import com.github.jreddit.retrieval.params.SubmissionSort;
 import com.github.jreddit.utils.restclient.HttpRestClient;
 import com.github.jreddit.utils.restclient.RestClient;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,12 +35,16 @@ class RedditHandler {
                     }
                     assert url != null;
                     if(url.toString().endsWith("png") || url.toString().endsWith("jpg") || url.toString().startsWith("https://imgur.com")) {
-                        BufferedImage img = ImageIO.read(url);
-                        if (img == null) {
-                            //noinspection UnusedAssignment
-                            img = ImageIO.read(new URL("https://i.imgur.com/" + url.toString().substring(18)));
-                        } else
-                            ImageIO.write(img, "png", imageFile);
+                        try {
+                            BufferedImage img = ImageIO.read(url);
+                            if (img == null) {
+                                //noinspection UnusedAssignment
+                                img = ImageIO.read(new URL("https://i.imgur.com/" + url.toString().substring(18)));
+                            } else
+                                ImageIO.write(img, "png", imageFile);
+                        } catch (IIOException e) {
+                            System.out.println(url);
+                        }
                     }
                 }
             }

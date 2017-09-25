@@ -147,6 +147,9 @@ class CommandListener {
                 } else if(command.startsWith("report")) {
                     Warning.report(event);
                     break outer;
+                } else if(command.startsWith("shuttle ")) {
+                    Shuttle.getShuttleForLine(event);
+                    break outer;
                 }
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }
