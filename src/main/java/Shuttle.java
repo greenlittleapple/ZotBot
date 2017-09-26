@@ -27,6 +27,7 @@ class Shuttle {
         UserAgent userAgent = new UserAgent();
         try {
             userAgent.visit("https://www.shuttle.uci.edu");
+            userAgent.wait();
             Elements lines = null;
             try {
                 lines = userAgent.doc.findFirst("<div class=ae-status-academic>").findFirst("<div class=ae-status-container>").findFirst("<ul>").findEvery("<li>");
@@ -50,12 +51,15 @@ class Shuttle {
                         notFound.printStackTrace();
                     }
                 }
+                builder.appendField("*Use the command \"z!shuttle [line]\" for more info about that line!*","----------", false);
                 BotUtils.sendMessage(event.getChannel(), builder.build());
             } catch (NotFound notFound) {
                 BotUtils.sendMessage(event.getChannel(), "Error retrieving shuttles, please try again later.");
             }
         } catch (ResponseException e) {
             BotUtils.sendMessage(event.getChannel(), "Error retrieving shuttles, please try again later.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

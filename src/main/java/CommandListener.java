@@ -29,6 +29,9 @@ class CommandListener {
                     default:
                         outMessage = "```ERROR: Please enter a valid command. Type z!help to see a list of commands!```";
                         break;
+                    case "apple":
+                        outMessage = "Why are you typing a command that doesn't exist? Shame on you.";
+                        break;
                     case "bustazot":
                         BotUtils.sendFile(event.getChannel(), "MAP OF RESTROOMS AT UCI", new File(System.getProperty("user.dir") + "/map.png"));
                         break outer;
@@ -115,8 +118,9 @@ class CommandListener {
                         outMessage = "https://www.admissions.uci.edu/discover/student-life/services.php";
                         break;
                     case "shuttle":
-                        Shuttle.getShuttles(event);
-                        break outer;
+                    //    Shuttle.getShuttles(event);
+                        outMessage = "Sorry, z!shuttle is broken right now, please try again in another time!";
+                        break;
                     case "zot":
                         outMessage = "ZOT ZOT ZOT!";
                         break;
@@ -147,10 +151,10 @@ class CommandListener {
                 } else if(command.startsWith("report")) {
                     Warning.report(event);
                     break outer;
-                } else if(command.startsWith("shuttle ")) {
-                    Shuttle.getShuttleForLine(event);
-                    break outer;
-                }
+                } // else if(command.startsWith("shuttle ")) {
+                   // Shuttle.getShuttleForLine(event);
+                  //  break outer;
+              //  }
                 BotUtils.sendMessage(event.getChannel(), outMessage);
             }
             else if (lowerCaseMessage.contains("zot zot zot")) {
